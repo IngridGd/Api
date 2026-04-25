@@ -2,7 +2,7 @@
 
 A RESTful API for user management built with **Node.js**, **Express**, **Prisma ORM**, and **MongoDB Atlas**.
 
-This project was developed to practice backend development concepts, including database integration, REST API design, and cloud database management.
+This project was developed to practice backend development concepts, including database integration, REST API design, HTTP methods, and cloud database management.
 
 ---
 
@@ -17,10 +17,13 @@ This project was developed to practice backend development concepts, including d
 
 ## 📌 Features
 
-- Create users
+- Create a new user
 - List all users
+- Filter users by name, email, or age via query parameters
+- Update an existing user
+- Delete a user
+- Full CRUD implementation with HTTP methods (GET, POST, PUT, DELETE)
 - MongoDB Atlas cloud database integration
-- API testing with Postman
 
 ---
 
@@ -127,15 +130,27 @@ The API will be available at: `http://localhost:3000`
 | Method | Endpoint | Description |
 |---|---|---|
 | POST | `/usuarios` | Create a new user |
-| GET | `/usuarios` | List all users |
+| GET | `/usuarios` | List all users (supports filters) |
+| PUT | `/usuarios/:id` | Update a user by ID |
+| DELETE | `/usuarios/:id` | Delete a user by ID |
+
+### Filtering users (GET)
+
+You can filter results using query parameters:
+
+```
+GET /usuarios?name=lua
+GET /usuarios?email=example@gmail.com
+GET /usuarios?age=25
+```
 
 ---
 
 ## 🧪 Testing with Postman
 
-**POST** `http://localhost:3000/usuarios`
+**POST** — Create a user
 
-Body (JSON):
+`POST http://localhost:3000/usuarios`
 
 ```json
 {
@@ -145,13 +160,47 @@ Body (JSON):
 }
 ```
 
-**GET** `http://localhost:3000/usuarios`
+---
+
+**GET** — List all users
+
+`GET http://localhost:3000/usuarios`
+
+---
+
+**GET** — Filter users
+
+`GET http://localhost:3000/usuarios?name=lua`
+
+---
+
+**PUT** — Update a user
+
+`PUT http://localhost:3000/usuarios/:id`
+
+```json
+{
+  "name": "lua updated",
+  "age": "26",
+  "email": "updated@gmail.com"
+}
+```
+
+---
+
+**DELETE** — Delete a user
+
+`DELETE http://localhost:3000/usuarios/:id`
 
 ---
 
 ## 📈 Roadmap
 
-- [ ] Add `PUT /usuarios/:id` — Update user
-- [ ] Add `DELETE /usuarios/:id` — Delete user
+- [x] Create user (POST)
+- [x] List users (GET)
+- [x] Filter users by query params
+- [x] Update user (PUT)
+- [x] Delete user (DELETE)
 - [ ] Add input validation (e.g. with Zod or Joi)
 - [ ] Improve project folder structure
+- [ ] Add authentication (e.g. JWT)
